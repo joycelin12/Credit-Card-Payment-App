@@ -78,7 +78,9 @@ function getAmtHistory(amtArr, dateArr) {
     var setItems = {};
     var total = 0;	  
       
-    for (var i = 0; i < tbPurchaseRecords.length; i++) {
+    if(tbPurchaseRecords != null) {
+
+      for (var i = 0; i < tbPurchaseRecords.length; i++) {
       var currRecord = tbPurchaseRecords[i];
             	    
       if(i == 0) {
@@ -90,8 +92,11 @@ function getAmtHistory(amtArr, dateArr) {
           total = setItems[currRecord.SpendingDate];		  
       }
         
+      }
     }
-  
+
+    if (tbPaymentRecords != null) {
+
     for (var i = 0; i < tbPaymentRecords.length; i++) {
       var currRecord = tbPaymentRecords[i];
       if (setItems[currRecord.PaymentDate] == null) {
@@ -101,6 +106,7 @@ function getAmtHistory(amtArr, dateArr) {
       }
 
     }
+    }	    
     //referencing https://stackoverflow.com/questions/10946880/sort-a-dictionary-or-whatever-key-value-data-structure-in-js-on-word-number-ke/10946984
     var keys = Object.keys(setItems);	  
     keys.sort();
@@ -172,11 +178,12 @@ function drawLines(amtArr, dateArr, amtUpper, amtLower) {
     .Set("numxticks", 6)
     .Set("scale.decimals", 2)
     .Set("xaxispos", "bottom")
-    .Set("gutter.left", 40)
+    .Set("gutter.left", 100)
     .Set("tickmarks", "filledcircle")
     .Set("ticksize", 5)
     .Set("chart.labels.ingraph", [,["Amount Owed", "blue", "yellow", 1, 50]])
     .Set("chart.title", "Amount Owed")
+    .Set("yaxisLabelsSize", 100)	
     .Draw();
 }
 
